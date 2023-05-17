@@ -50,9 +50,29 @@ class _HomePageState extends State<HomePage> {
         context: context,
         builder: (context) {
           return DialogBox(
-            controller: _controller,
-            onSave: saveNewTask,
-            onCancel: () => Navigator.of(context).pop(),
+              controller: _controller,
+              onSave: saveNewTask,
+              onCancel: () {
+                _controller.clear();
+                Navigator.of(context).pop();
+              });
+        });
+  }
+
+  void showAbout() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text(
+              "About",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            content: Flexible(
+                child: Text(
+                    "Introducing Task Buddy, a user-friendly mobile application that makes your life easier. With Task Buddy's simple and straightforward layout, you can easily manage your to-do list, maintain organization, and increase productivity. Say good-bye to time-consuming duties and hello to a more streamlined and effective approach.")),
+            elevation: 10,
+            scrollable: true,
           );
         });
   }
@@ -61,18 +81,33 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Task Buddy",
-          style: TextStyle(fontStyle: FontStyle.italic),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: IconButton(
+                onPressed: () {
+                  showAbout();
+                },
+                icon: const Icon(
+                  Icons.info_rounded,
+                  size: 22,
+                )),
+          )
+        ],
+        title: Image.asset(
+          "assets/icons/png/logo-no-background.png",
+          width: 135,
         ),
+        backgroundColor: const Color.fromARGB(255, 31, 30, 30),
         centerTitle: true,
-        elevation: 0,
+        elevation: 5,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromARGB(255, 31, 30, 30),
         onPressed: createNewTask,
         child: const Icon(Icons.add),
       ),
-      backgroundColor: Colors.yellow[200],
+      backgroundColor: Colors.white,
       body: ListView.builder(
         itemCount: db.toDoList.length,
         itemBuilder: (context, index) {

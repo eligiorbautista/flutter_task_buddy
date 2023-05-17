@@ -11,8 +11,7 @@ class ToDoDatabase {
   void createInitialData() {
     // default value
     toDoList = [
-      ["Make Tutorial", false],
-      ["Do Excercise", false],
+      ["This is a sample task", false],
     ];
   }
 

@@ -18,10 +18,9 @@ class TaskBuddy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "Task Buddy",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.yellow),
       home: const HomePage(),
     );
   }
