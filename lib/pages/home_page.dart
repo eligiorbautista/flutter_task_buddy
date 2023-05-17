@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
       // ! means the opposite of the current value ex(true to false or false to true)
       db.toDoList[index][1] = !db.toDoList[index][1];
     });
+    db.updateDatabase();
   }
 
   // save new task
