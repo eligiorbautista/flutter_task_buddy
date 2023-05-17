@@ -10,6 +10,7 @@ void main() async {
   var box = await Hive.openBox("mybox");
 
   //
+  await Future.delayed(const Duration(seconds: 2));
   runApp(const TaskBuddy());
 }
 

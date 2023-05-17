@@ -14,8 +14,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // reference the hive box
-  final _mybox = Hive.openBox("mybox");
+  final _mybox = Hive.box("mybox");
   ToDoDatabase db = ToDoDatabase();
+  @override
+  void initState() {
+    // if this is the 1st time ever openin the app, then create default data
+    if (_mybox.get("TODOLIST") == null) {
+      db.createInitialData();
+    } else {
+      // there already exists data
+      db.loadData();
+    }
+
+    super.initState();
+  }
 
   // text controller - for us to access the textfield outside the dialog
   final _controller = TextEditingController();
@@ -35,6 +47,7 @@ class _HomePageState extends State<HomePage> {
       _controller.clear();
       Navigator.of(context).pop();
     });
+    db.updateDatabase();
   }
 
   // delete task
@@ -42,6 +55,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       db.toDoList.removeAt(index);
     });
+    db.updateDatabase();
   }
 
   // create new task
@@ -63,14 +77,22 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: context,
         builder: (context) {
-          return const AlertDialog(
-            title: Text(
+          return AlertDialog(
+            title: const Text(
               "About",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            content: Flexible(
-                child: Text(
-                    "Introducing Task Buddy, a user-friendly mobile application that makes your life easier. With Task Buddy's simple and straightforward layout, you can easily manage your to-do list, maintain organization, and increase productivity. Say good-bye to time-consuming duties and hello to a more streamlined and effective approach.")),
+            content: SizedBox(
+              height: 230,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: const [
+                    Text(
+                        "Introducing Task Buddy, a user-friendly mobile application that makes your life easier. With Task Buddy's simple and straightforward layout, you can easily manage your to-do list, maintain organization, and increase productivity. Say good-bye to time-consuming duties and hello to a more streamlined and effective approach."),
+                  ],
+                ),
+              ),
+            ),
             elevation: 10,
             scrollable: true,
           );
