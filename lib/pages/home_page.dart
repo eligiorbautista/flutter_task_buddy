@@ -78,8 +78,8 @@ class _HomePageState extends State<HomePage> {
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: const Text(
+          return const AlertDialog(
+            title: Text(
               "About",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               height: 230,
               child: SingleChildScrollView(
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
                         "Introducing Task Buddy, a user-friendly mobile application that makes your life easier. With Task Buddy's simple and straightforward layout, you can easily manage your to-do list, maintain organization, and increase productivity. Say good-bye to time-consuming duties and hello to a more streamlined and effective approach."),
                   ],
